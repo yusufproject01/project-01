@@ -36,7 +36,7 @@ const Navbar = () => {
     <section className={`w-full h-14 flex items-center justify-between px-14 fixed text-white z-50
     ${scrolled ? 'bg-primary shadow-lg' : 'bg-transparent'}`}>
       <Link href="/">
-        <h1 className={`${playfirDisplay.className} text-4xl font-bold`}>NavBrand</h1>
+        <h1 className={`${playfirDisplay.className} text-4xl font-bold`}>FoodieShare</h1>
       </Link>
       <ul className="flex justify-between items-center text-base w-64 h-full">
         <Link
