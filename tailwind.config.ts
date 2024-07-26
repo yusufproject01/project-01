@@ -18,7 +18,8 @@ const config: Config = {
         secondary: "#E9C46A",
         teritary: "#F4A261",
         qutenary: "#E76F51",
-        page: "#EEEDEB"
+        page: "#EEEDEB",
+        card: "#F6F5F5"
       }
     },
   },

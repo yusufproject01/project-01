@@ -34,7 +34,7 @@ const Navbar = () => {
 
   return (
     <section className={`w-full h-14 flex items-center justify-between px-14 fixed text-white z-50
-    ${scrolled ? 'bg-primary shadow-lg' : 'bg-transparent'}`}>
+    ${scrolled ? 'bg-primary shadow-lg transition-all ease-in-out' : 'bg-transparent'}`}>
       <Link href="/">
         <h1 className={`${playfirDisplay.className} text-4xl font-bold`}>FoodieShare</h1>
       </Link>
@@ -43,23 +43,23 @@ const Navbar = () => {
           href="/"
           className={`hover:scale-105 hover:font-semibold
             ${active === '/' ? ' text-white' : 'text-white'
-            } hover:bg-white p-2 h-full flex items-center justify-center hover:text-primary`}
+            } hover:bg-white p-2 h-full flex items-center justify-center hover:text-primary transition-all ease-in-out`}
           onClick={() => handleSetActive('/')}>
           Home
         </Link>
         <Link
-          href="/"
+          href="/recipe"
           className={`hover:scale-105 hover:font-semibold
             ${active === '/' ? ' text-white' : 'text-white'
-            } hover:bg-white p-2 h-full flex items-center justify-center hover:text-primary`}
+            } hover:bg-white p-2 h-full flex items-center justify-center hover:text-primary transition-all ease-in-out`}
           onClick={() => handleSetActive('/')}>
           Recipe
         </Link>
         <Link
-          href="/"
+          href="/auth/signin"
           className={`hover:scale-105 hover:font-semibold
             ${active === '/' ? ' text-white' : 'text-white'
-            } hover:bg-white p-2 h-full flex items-center justify-center hover:text-primary`}
+            } hover:bg-white p-2 h-full flex items-center justify-center hover:text-primary transition-all ease-in-out`}
           onClick={() => handleSetActive('/')}>
           Login
         </Link>
