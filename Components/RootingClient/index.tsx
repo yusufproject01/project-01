@@ -8,7 +8,7 @@ import Footer from '../Layout/Footer';
 
 const ClientLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const pathname = usePathname();
-    const showNavbar = !pathname.startsWith('/auth') && !pathname.startsWith('/Components/Loading');
+    const showNavbar = !pathname.startsWith('/app/loading.tsx') && !pathname.startsWith('/auth');
 
     useEffect(() => {
         window.scrollTo(0, 0);

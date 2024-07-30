@@ -16,3 +16,7 @@
     animation:s4 1s infinite steps(10);
     }
     @keyframes s4 {to{transform: rotate(1turn)}}
+
+    /* .animate__animated.animate__fadeInRight{
+        --animate-duration: 3s
+    } */

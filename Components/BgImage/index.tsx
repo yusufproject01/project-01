@@ -1,20 +1,14 @@
 import Image from "next/image"
+import { bgImageProps } from "../../lib/inteface";
 
-interface bgImageProps {
-    children: any,
-    title: string,
-    src: string,
-    alt: string
-}
 
 const BgImage = ({ children, title, src, alt }: bgImageProps) => {
-
     return (
-        <main className="w-full max-h-[430px] overflow-hidden object-cover relative">
+        <main className="w-full max-h-[430px] overflow-hidden object-cover rounded-md relative">
             <Image src={src}
                 alt={alt}
-                width={900}
-                height={900}
+                width={600}
+                height={600}
                 className={'object-cover w-full h-full brightness-50'} />
             <div className="w-full flex flex-col items-center absolute top-0 pt-6">
                 <h1 className="text-4xl font-bold text-white shadow-lg italic">{title}</h1>
