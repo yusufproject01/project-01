@@ -1,13 +1,15 @@
 "use client";
 
-import { auth } from "@/lib/firebase";
+import { auth, db } from "@/lib/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { doc, setDoc } from "firebase/firestore";
 
-const Signup: React.FC = () => {
+const Signup = () => {
     const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState<string | null>(null);
@@ -33,8 +35,18 @@ const Signup: React.FC = () => {
         setLoading(true);
 
         try {
+            // Mendaftar pengguna
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
+
+            // Menyimpan data pengguna di Firestore dengan UID sebagai ID dokumen
+            await setDoc(doc(db, "users", user.uid), {
+                id: user.uid,
+                email: email,
+                name: name,
+                createdAt: new Date().toISOString(),
+            });
+
             console.log('User Signed Up:', user);
             // Redirect to home or any other page
             router.push('/');
@@ -58,6 +70,8 @@ const Signup: React.FC = () => {
                 <input
                     type="text"
                     placeholder="Nama Lengkap"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     className={`text-sm border border-primary shadow-md rounded-lg w-64 h-8 focus:outline-primary focus:shadow-primary focus:ring-primary focus:ring-2 text-center`}
                     required
                 />

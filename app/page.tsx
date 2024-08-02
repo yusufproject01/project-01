@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 // 
 // Components
-import Hero from "@/Components/Hero";
+import Hero from "@/Components/HomeComp/Hero";
 import Card from "@/Components/HomeComp/Card";
 import Text from "@/Components/Text";
 import BgImage from "@/Components/BgImage";

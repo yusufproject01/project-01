@@ -28,7 +28,6 @@ function Oval({ src, title, desc, href, id }: CardFoodProps) {
         return () => unsubscribe();
     }, []);
     // 
-
     const handleRecipeClick = () => {
         if (!user) {
             alert('You need to be logged in to access the Recipe page.');
@@ -41,14 +40,14 @@ function Oval({ src, title, desc, href, id }: CardFoodProps) {
 
 
     return (
-        <button onClick={handleRecipeClick} key={id} className="w-72 max-h-[350px] h-full bg-primary 
+        <button onClick={handleRecipeClick} key={id} className="w-72 max-h-[350px] h-full bg-white 
         flex flex-col rounded-lg overflow-hidden transition-all ease-in-out hover:scale-105 shadow-lg">
             <div className="w-full h-80 overflow-hidden">
                 <Image src={src} alt="Oval" width={200} height={200} className="object-cover w-full h-full" />
             </div>
-            <div className="w-full h-60 flex flex-col items-center pt-4 gap-2">
-                <h1 className="text-xl font-semibold text-white hover:scale-105">{title}</h1>
-                <p className="text-base text-white text-center w-full">{desc}</p>
+            <div className="w-full h-60 flex flex-col items-center pt-4 gap-2 text-black">
+                <h1 className="text-xl font-semibold hover:scale-105">{title}</h1>
+                <p className="text-base text-center w-full">{desc}</p>
             </div>
         </button>
     );

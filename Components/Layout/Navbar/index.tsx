@@ -3,18 +3,18 @@
 import { Playfair_Display } from "next/font/google";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useRouter } from 'next/navigation'; // Untuk melakukan navigasi programatik
-import Loading from "@/app/loading";
 import { auth } from "@/lib/firebase";
+import Loading from "@/app/loading";
 
 const playfirDisplay = Playfair_Display({ subsets: ["latin"] });
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(false); // State untuk loading
   const router = useRouter(); // Untuk melakukan navigasi programatik
-
 
   // Handle scroll position
   useEffect(() => {
@@ -25,9 +25,7 @@ const Navbar: React.FC = () => {
         setScrolled(false);
       }
     };
-
     window.addEventListener('scroll', handleScroll);
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -38,19 +36,19 @@ const Navbar: React.FC = () => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
-
     return () => unsubscribe();
   }, [auth]);
 
-  // Handle sign out
+  // Handle Signout
   const handleSignOut = async () => {
+    setLoading(true); // Set loading state to true
     try {
       await signOut(auth);
-      <Loading/>
-      // Optionally redirect user after sign out
-      router.push('/auth/signin'); // Redirect to sign-in page
+      router.push('/auth/signin'); // Redirect to sign-in page after sign-out
     } catch (error) {
       console.error('Error signing out:', error);
+    } finally {
+      setLoading(false); // Set loading state to false
     }
   };
 
@@ -65,68 +63,71 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <section
-      className={`w-full h-14 flex items-center justify-between px-14 fixed text-white z-50
-      ${scrolled ? 'bg-primary shadow-lg transition-all ease-in-out' : 'bg-transparent'}`}
-    >
-      <Link href="/">
-        <h1 className={`${playfirDisplay.className} text-4xl font-bold `}>
-          FoodieShare
-        </h1>
-      </Link>
-      <ul className="flex justify-between items-center text-base w-64 h-full">
-        <li>
-          <Link
-            href="/"
-            className={`hover:scale-105 hover:font-semibold
-              hover:bg-white p-2 h-full flex items-center justify-center hover:text-primary transition-all ease-in-out`}
-          >
-            Home
-          </Link>
-        </li>
-        <li>
-          <button
-            onClick={handleRecipeClick} // Handle click event
-            className={`hover:scale-105 hover:font-semibold
-              hover:bg-white p-2 h-full flex items-center justify-center hover:text-primary transition-all ease-in-out`}
-          >
-            Recipe
-          </button>
-        </li>
-        {user ? (
-          <>
+    <>
+      {loading && <Loading />} {/* Tampilkan loading jika dalam proses logout */}
+      <section
+        className={`w-full h-14 flex items-center justify-between px-14 fixed text-white z-50
+        ${scrolled ? 'bg-primary shadow-lg transition-all ease-in-out' : 'bg-transparent'}`}
+      >
+        <Link href="/">
+          <h1 className={`${playfirDisplay.className} text-4xl font-bold `}>
+            FoodieShare
+          </h1>
+        </Link>
+        <ul className="flex justify-between items-center text-base w-64 h-full">
+          <li>
+            <Link
+              href="/"
+              className={`hover:scale-105 hover:font-semibold
+                hover:bg-white p-2 h-full flex items-center justify-center hover:text-primary transition-all ease-in-out rounded`}
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <button
+              onClick={handleRecipeClick} // Handle click event
+              className={`hover:scale-105 hover:font-semibold
+                hover:bg-white p-2 h-full flex items-center justify-center hover:text-primary transition-all ease-in-out rounded`}
+            >
+              Recipe
+            </button>
+          </li>
+          {user ? (
+            <>
+              <li>
+                <Link
+                  href="/profile"
+                  className={`hover:scale-105 hover:font-semibold
+                    hover:bg-white p-2 h-full flex items-center justify-center hover:text-primary transition-all ease-in-out rounded`}
+                >
+                  Profile
+                </Link>
+              </li>
+              <li>
+                <button
+                  onClick={handleSignOut}
+                  className={`hover:scale-105 hover:font-semibold
+                    hover:bg-white p-2 h-full flex items-center justify-center hover:text-primary transition-all ease-in-out text-white rounded`}
+                >
+                  Logout
+                </button>
+              </li>
+            </>
+          ) : (
             <li>
               <Link
-                href="/profile"
+                href="/auth/signin"
                 className={`hover:scale-105 hover:font-semibold
                   hover:bg-white p-2 h-full flex items-center justify-center hover:text-primary transition-all ease-in-out`}
               >
-                Profile
+                Login
               </Link>
             </li>
-            <li>
-              <button
-                onClick={handleSignOut}
-                className={`hover:scale-105 hover:font-semibold
-                  hover:bg-white p-2 h-full flex items-center justify-center hover:text-primary transition-all ease-in-out bg-red-500 text-white rounded`}
-              >
-                Logout
-              </button>
-            </li>
-          </>
-        ) : (
-          <li>
-            <Link
-              href="/auth/signin"
-              className={`hover:scale-105 hover:font-semibold
-                hover:bg-white p-2 h-full flex items-center justify-center hover:text-primary transition-all ease-in-out`}
-            >
-              Login
-            </Link>
-          </li>
-        )}
-      </ul>
-    </section>
+          )}
+        </ul>
+      </section>
+    </>
   );
 };
 
