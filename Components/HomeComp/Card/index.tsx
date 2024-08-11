@@ -41,7 +41,7 @@ function Oval({ src, title, desc, href, id }: CardFoodProps) {
 
     return (
         <button onClick={handleRecipeClick} key={id} className="w-72 max-h-[350px] h-full bg-white 
-        flex flex-col rounded-lg overflow-hidden transition-all ease-in-out hover:scale-105 shadow-lg">
+        flex flex-col rounded-lg overflow-hidden transition-all ease-in-out hover:scale-105 shadow-sm">
             <div className="w-full h-80 overflow-hidden">
                 <Image src={src} alt="Oval" width={200} height={200} className="object-cover w-full h-full" />
             </div>
@@ -79,7 +79,7 @@ function Simple({ src, title, desc, href, id }: CardFoodProps) {
 
     return (
         <button onClick={handleRecipeClick} key={id} className="max-w-xl w-full h-56 bg-card flex items-center py-4 px-4 
-            gap-6 rounded-md hover:brightness-90 shadow-2xl">
+            gap-6 rounded-md hover:brightness-90 shadow-sm">
             <div className="w-56 h-full">
                 <Image
                     src={src}

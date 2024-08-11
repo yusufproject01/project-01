@@ -41,9 +41,9 @@ const Signup = () => {
 
             // Menyimpan data pengguna di Firestore dengan UID sebagai ID dokumen
             await setDoc(doc(db, "users", user.uid), {
-                id: user.uid,
                 email: email,
                 name: name,
+                image: '',
                 createdAt: new Date().toISOString(),
             });
 
@@ -72,7 +72,7 @@ const Signup = () => {
                     placeholder="Nama Lengkap"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className={`text-sm border border-primary shadow-md rounded-lg w-64 h-8 focus:outline-primary focus:shadow-primary focus:ring-primary focus:ring-2 text-center`}
+                    className={`text-sm border border-primary shadow-md rounded-lg w-64 h-8 focus:outline-none focus:shadow-primary focus:ring-1 text-center`}
                     required
                 />
                 <input
@@ -80,7 +80,7 @@ const Signup = () => {
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`text-sm border ${!email && error ? 'border-red-500' : 'border-primary'} shadow-md rounded-lg w-64 h-8 focus:outline-primary focus:shadow-primary focus:ring-primary focus:ring-2 text-center`}
+                    className={`text-sm border ${!email && error ? 'border-red-500' : 'border-primary'} text-sm border border-primary shadow-md rounded-lg w-64 h-8 focus:outline-none focus:shadow-primary focus:ring-1 text-center`}
                     required
                 />
                 <input
@@ -88,7 +88,7 @@ const Signup = () => {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`text-sm border ${!password && error ? 'border-red-500' : 'border-primary'} shadow-md rounded-lg w-64 h-8 focus:outline-primary focus:shadow-primary focus:ring-primary focus:ring-2 text-center`}
+                    className={`text-sm border ${!password && error ? 'border-red-500' : 'border-primary'} text-sm border border-primary shadow-md rounded-lg w-64 h-8 focus:outline-none focus:shadow-primary focus:ring-1 text-center`}
                     required
                 />
                 <input
@@ -96,7 +96,7 @@ const Signup = () => {
                     placeholder="Konfirmasi Password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className={`text-sm border ${!confirmPassword && error ? 'border-red-500' : 'border-primary'} shadow-md rounded-lg w-64 h-8 focus:outline-primary focus:shadow-primary focus:ring-primary focus:ring-2 text-center`}
+                    className={`text-sm border ${!confirmPassword && error ? 'border-red-500' : 'border-primary'} text-sm border border-primary shadow-md rounded-lg w-64 h-8 focus:outline-none focus:shadow-primary focus:ring-1 text-center`}
                     required
                 />
                 {error && <p className="text-red-500 text-sm">{error}</p>}

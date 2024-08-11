@@ -58,7 +58,7 @@ const Navbar: React.FC = () => {
       alert('You need to be logged in to access the Recipe page.');
       router.push('/auth/signin'); // Redirect to sign-in page
     } else {
-      router.push('/recipe');
+      router.push('/recipes');
     }
   };
 
@@ -90,7 +90,7 @@ const Navbar: React.FC = () => {
               className={`hover:scale-105 hover:font-semibold
                 hover:bg-white p-2 h-full flex items-center justify-center hover:text-primary transition-all ease-in-out rounded`}
             >
-              Recipe
+              Recipes
             </button>
           </li>
           {user ? (

@@ -2,48 +2,36 @@
 
 // React NextJs
 import React, { useEffect, useState } from 'react';
-import Image from "next/image";
-import Link from "next/link";
 // 
 // Components
 import Hero from "@/Components/HomeComp/Hero";
 import Card from "@/Components/HomeComp/Card";
 import Text from "@/Components/Text";
-import BgImage from "@/Components/BgImage";
-import CardChef from "@/Components/BgImage/CardChef";
 import Loading from './loading';
 // 
 // Libs
-import { FoodiesProps } from "@/lib/inteface";
-import { fetchDataCollectionLimit } from "@/lib/api/fetchCollection";
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
+// import { Recipe } from "@/lib/inteface";
+import { fetchDataCollectionLimit, RecipeHome } from "@/lib/api/fetchCollection";
 import { monitoringAuthState } from '@/lib/Utils/monitoringAuthState';
-import { useRouter } from 'next/router';
-// 
-
+import BgImage from '@/Components/BgImage';
+import CardChef from '@/Components/BgImage/CardChef';
 
 export default function Home() {
-  // State untuk menampung data dan loading
-  const [userData, setUserData] = useState<FoodiesProps[]>([]);
-  const [userDataRecomend, setUserDataRecomend] = useState<FoodiesProps[]>([]);
-  const [loading, setLoading] = useState(true); // State untuk loading
-  const limitRecomend = 4; // Set limit here
-  const limitCount = 6; // Set limit here
-  // 
+  const [userData, setUserData] = useState<RecipeHome[]>([]);
+  const [userDataRecomend, setUserDataRecomend] = useState<RecipeHome[]>([]);
+  const [loading, setLoading] = useState(true);
+  const limitRecomend = 4;
+  const limitCount = 6;
 
-  // Mengolah Data untuk Section Recomend
   useEffect(() => {
     async function fetchData() {
       const dataLimit = await fetchDataCollectionLimit(limitRecomend);
       setUserDataRecomend(dataLimit);
-      setLoading(false); // Set loading ke false setelah data di-fetch
+      setLoading(false);
     }
     fetchData();
   }, []);
-  // 
 
-  // Mengolah Data untuk Section Recipe Home
   useEffect(() => {
     async function fetchData() {
       const data = await fetchDataCollectionLimit(limitCount);
@@ -54,20 +42,16 @@ export default function Home() {
   }, []);
 
   if (loading) {
-    return <Loading />; // Tampilkan komponen Loading saat data sedang dimuat
+    return <Loading />;
   }
-  // 
-  // 
-  monitoringAuthState()
+
+  monitoringAuthState();
 
   return (
     <main className="w-full h-full max-w-7xl mx-auto">
-      {/* Hero Section */}
       <section className="w-full flex justify-center mb-8">
         <Hero />
       </section>
-      {/* Hero Section */}
-      {/* Recipe Card Section */}
       <div className="w-full flex flex-col items-center">
         <Text.Title text="Best Recipe Recommendation" />
         <Text.SubTitle text="Jelajahi, Bagikan, dan Nikmati Setiap Suapan" />
@@ -77,15 +61,13 @@ export default function Home() {
           <Card.Oval
             id={foodie.id}
             key={foodie.id}
-            src={foodie.image}
+            src={foodie.images[0]}
             title={foodie.nama_makanan}
-            desc={foodie.deskripsi}
-            href={`/recipe/${foodie.id}`}
+            desc={foodie.description}
+            href={`/recipes/${foodie.id}`}
           />
         ))}
       </section>
-      {/* Recipe Card Section */}
-      {/* The Most Popular Chef Share Recipe section  */}
       <section className="my-12 w-full h-96 pt-4">
         <BgImage src="/assets/hero/hero3.jpg" title="The Most Popular Chef Share Recipe" alt="Chef">
           <CardChef href="/" src="/assets/chef/chef1.png" nameChef="Michael Jack S." position="Head Chef" resto=" Bistrot Instinct Restaurant" />
@@ -94,29 +76,25 @@ export default function Home() {
           <CardChef href="/" src="/assets/chef/chef4.png" nameChef="Monalisa" position="Head Chef" resto=" Boutary Restaurant" />
         </BgImage>
       </section>
-      {/* The Popular Chef and User  section  */}
-      {/* semua makanan */}
       <div className='pt-14 flex flex-col items-center justify-center w-full '>
         <div className='w-full flex flex-col items-center'>
           <Text.Title text="Mau Masak Apa Hari Ini?" />
         </div>
         <section className="max-w-7xl w-full h-auto flex justify-center mt-10 rounded-lg">
           <div className="w-full grid grid-cols-2 justify-items-center gap-4 py-6">
-            {/* Render data di sini */}
             {userData.map((data) => (
               <Card.Simple
                 id={data.id}
                 key={data.id}
-                src={data.image}
+                src={data.images[0]}
                 title={data.nama_makanan}
-                desc={data.deskripsi}
-                href={`/recipe/${data.id}`}
+                desc={data.description}
+                href={`/recipes/${data.id}`}
               />
             ))}
           </div>
         </section>
       </div>
-      {/* semua makanan */}
     </main>
   );
 }

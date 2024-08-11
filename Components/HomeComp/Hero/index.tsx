@@ -2,7 +2,7 @@ import Image from "next/image"
 
 const Hero = () => {
     return (
-        <div className="bg-slate-400 w-full max-h-[430px] h-full flex overflow-hidden rounded-lg shadow-lg">
+        <div className="bg-slate-400 w-full max-h-[430px] h-full flex overflow-hidden rounded-lg">
             <div className="w-1/3 bg-primary flex flex-col items-center pt-8">
                 <div className="w-96 h-full flex flex-col justify-center gap-2">
                     <p className="text-white">Selamat datang....</p>

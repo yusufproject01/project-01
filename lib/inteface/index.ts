@@ -5,10 +5,21 @@ export interface PageProps {
     }
 }
 
+export interface Recipe {
+    nama_makanan: string;
+    images: string[]; // Array string untuk menyimpan URL gambar
+    description: string;
+    ingredients: { amount: string; unit: string; name: string }[];
+    instructions: string;
+    userId: string;
+}
+
 // Interface untuk typedata Foodies
 export interface FoodiesProps {
     id: string;
     nama_makanan: string;
+    ingredients: string;
+    instructions: string;
     deskripsi: string;
     image: string;
 }
